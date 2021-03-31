@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="search-container">
+    <div class="form-group">
+      <label>Pesquisar</label>
+      <div>
+        <input class="form-control" [formControl]="searchControl" />
+        <button
+          class="btn btn-dark"
+          [disabled]="!searchControl.valid"
+          (click)="doSearch()"
+        >
+          Pesquisar
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Pesquisar com <i>autocomplete</i></label>
+      <dio-cities-typeahead
+        [formControl]="searchControlWithAutocomplete"
+      ></dio-cities-typeahead>
+    </div>
+  </div>
+
+  <dio-loader *ngIf="loading$ | async"></dio-loader>
+
+  <div *ngIf="!(loading$ | async) && !(error$ | async) && !!cityWeather">
+    <dio-current-weather
+      [cityWeather]="cityWeather"
+      [isFavorite]="isCurrentFavorite$ | async"
+      [unit]="unit$ | async"
+      (toggleBookmark)="onToggleBookmark()"
+    ></dio-current-weather>
+  </div>
+
+  <div *ngIf="!(loading$ | async) && error$ | async">
+    <a>Tentar novamente</a>
+  </div>
+</div>
