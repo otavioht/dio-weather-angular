@@ -1,7 +1,8 @@
+import { MOCK_CITIES } from './../../../assets/db/cities';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as jsSearch from 'js-search';
 
@@ -16,7 +17,7 @@ export class CitiesService {
   }
 
   getCities(query: string): Observable<CityTypeaheadItem[]> {
-    return this.http.get<{country: string}[]>('assets/db/cities.json')
+    return of(MOCK_CITIES)
       .pipe(
         map(cities => {
           const search = new jsSearch.Search('geonameid');

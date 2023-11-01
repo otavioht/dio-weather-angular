@@ -1,16 +1,14 @@
-<input
-  [(ngModel)]="search"
-  typeaheadOptionField="name"
-  typeahead="dataSource$"
-  typeaheadAsync="true"
-  typeaheadWaitMs="400"
-  typeaheadItemTemplate="itemTemplate"
-  (typeaheadOnSelect)="onSelected($event)"
-  (typeaheadLoading)="loading = $event"
-  [disabled]="disabled"
-  class="form-control"
-  placeholder="Pesquisar"
-/>
+<input [(ngModel)]="search"
+       typeaheadOptionField="name"
+       [typeahead]="dataSource$"
+       [typeaheadAsync]="true"
+       [typeaheadWaitMs]="400"
+       [typeaheadItemTemplate]="itemTemplate"
+       (typeaheadOnSelect)="onSelected($event)"
+       (typeaheadLoading)="loading = $event"
+       [disabled]="disabled"
+       class="form-control"
+       placeholder="Pesquisar">
 
 <div *ngIf="loading">Carregando</div>
 

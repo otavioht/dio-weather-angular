@@ -63,16 +63,16 @@ export class WeatherService implements OnDestroy {
       lon: lon.toString(),
       exclude: 'minutely,hourly',
     }});
-    return this.doGet<any>('onecall', params)
+    return this.doGet<any>('onecall', params,'3.0')
       .pipe(map(response => responseToCityDailyWeather(response)));
   }
 
-  private doGet<T>(url: string, params: HttpParams): Observable<T> {
+  private doGet<T>(url: string, params: HttpParams, apiVersion='2.5'): Observable<T> {
     params = params.append('appid', environment.apiKey);
     params = params.append('lang', 'pt_br');
     if (this.unit !== Units.SI) {
       params = params.append('units', this.unit.toLocaleLowerCase());
     }
-    return this.http.get<T>(`https://api.openweathermap.org/data/2.5/${ url }`, { params });
+    return this.http.get<T>(`https://api.openweathermap.org/data/${apiVersion}/${ url }`, { params });
   }
 }
